@@ -1,0 +1,38 @@
+/* App.css */
+
+.app-container {
+  display: flex;
+  flex-direction: row;
+  padding: 20px;
+  box-sizing: border-box;
+  height: 100vh; /* Make the container take full viewport height */
+}
+
+.input-section {
+  flex: 1;
+  margin-right: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+.graph-section {
+  flex: 2;
+  border: 1px solid #ddd;
+  height: calc(100vh - 40px); /* Adjust height based on padding */
+}
+
+textarea {
+  flex: 1;
+  width: 100%;
+  box-sizing: border-box;
+  resize: none; /* Prevent resizing */
+}
+
+button {
+  margin-top: 10px;
+  align-self: flex-start;
+}
+
+h2 {
+  margin-top: 0;
+}
