@@ -16,10 +16,10 @@ function App() {
     }
 
     const gen_kwargs = {
-      num_beams: 5,
-      max_length: 128,
-      length_penalty: 1.0,
-      num_return_sequences: 5,
+      "num_beams": 5,
+      "max_length": 128,
+      "length_penalty": 1.0,
+      "num_return_sequences": 5,
     };
 
     try {
