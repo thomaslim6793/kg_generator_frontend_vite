@@ -3,13 +3,17 @@ import axios from 'axios';
 import { Network } from 'vis-network';
 import './App.css'; // Import the CSS file
 
-const default_text = `Our whole universe was in a hot, dense state
-Then nearly fourteen billion years ago expansion started, wait
-The earth began to cool, the autotrophs began to drool
-Neanderthals developed tools
-We built a wall (we built the pyramids)
-Math, science, history, unraveling the mysteries
-That all started with the big bang (bang)!`;
+const default_text = `The human immune system is a complex network of cells, 
+tissues, and organs that work together to defend the body against pathogens such as bacteria, 
+viruses, and other harmful agents. Central to this defense are white blood cells, which identify 
+and eliminate foreign invaders. One key component of the immune response is the production of 
+antibodies by B cells, which bind to specific antigens on the surface of pathogens, neutralizing 
+them or marking them for destruction by other immune cells. T cells, another critical group of 
+immune cells, directly attack infected or cancerous cells. The immune system also possesses memory, 
+allowing it to mount a faster and stronger response upon re-exposure to the same pathogen. However, 
+this intricate defense system can sometimes malfunction, leading to autoimmune diseases, where the 
+immune system mistakenly attacks the body’s own tissues, or immunodeficiencies, where its ability 
+to fight infections is impaired.`;
 
 function App() {
   const [inputText, setInputText] = useState(default_text);  // Default text
