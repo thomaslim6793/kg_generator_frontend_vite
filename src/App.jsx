@@ -4,18 +4,19 @@ import { Network } from 'vis-network';
 import './App.css'; // Import the CSS file
 
 function App() {
-  const [inputText, setInputText] = useState('');
-  const [triplets, setTriplets] = useState([]);
+  const [inputText, setInputText] = useState('Barack Obama was born in Hawaii.'); // Example text input
+  const [triplets, setTriplets] = useState([]); // Example triplet data
   const networkContainer = useRef(null);
   const networkInstance = useRef(null);
 
+  // Function to submit the input text and fetch the triplets
   const handleSubmit = async () => {
     if (!inputText.trim()) {
       alert('Please enter some text.');
       return;
     }
     try {
-      const response = await axios.post('http://localhost:8000/generate', {
+      const response = await axios.post(`${import.meta.env.VITE_BACKEND_ENDPOINT}/generate`, {
         text: inputText,
       });
       setTriplets(response.data.triplets);
@@ -25,80 +26,63 @@ function App() {
     }
   };
 
+  // Automatically generate example knowledge graph when the component mounts
+  useEffect(() => {
+    const fetchExampleGraph = async () => {
+      try {
+        const response = await axios.post(`${import.meta.env.VITE_BACKEND_ENDPOINT}/generate`, {
+          text: inputText,  // Use the default example text
+        });
+        setTriplets(response.data.triplets); // Set example triplet data
+      } catch (error) {
+        console.error('Error fetching example triplets:', error);
+      }
+    };
+
+    // Call the function when the component mounts
+    fetchExampleGraph();
+  }, []); // Empty dependency array means this runs only once on component mount
+
+  // Update the knowledge graph whenever triplets change
   useEffect(() => {
     if (triplets.length > 0 && networkContainer.current) {
-      const nodesSet = new Set();
+      const nodes = [];
       const edges = [];
-
-      triplets.forEach(({ head, type, tail }) => {  // Adjusting the keys based on FastAPI response
-        nodesSet.add(head);
-        nodesSet.add(tail);
-        edges.push({
-          from: head,
-          to: tail,
-          label: type,
-          arrows: 'to',
-        });
+      
+      // Convert triplets into nodes and edges for the knowledge graph
+      triplets.forEach((triplet, index) => {
+        const [subject, predicate, object] = triplet;
+        nodes.push({ id: subject, label: subject });
+        nodes.push({ id: object, label: object });
+        edges.push({ from: subject, to: object, label: predicate });
       });
 
-      const nodes = Array.from(nodesSet).map((node) => ({
-        id: node,
-        label: node,
-      }));
-
-      const data = { nodes, edges };
+      const data = { nodes: new Set(nodes), edges };
       const options = {
-        layout: {
-          improvedLayout: true,
-        },
-        edges: {
-          color: '#000000',
-          smooth: {
-            type: 'continuous',
-          },
-        },
-        nodes: {
-          shape: 'dot',
-          size: 16,
-          font: {
-            size: 14,
-            color: '#000000',
-          },
-          borderWidth: 2,
-        },
-        physics: {
-          enabled: true,
-          barnesHut: {
-            gravitationalConstant: -8000,
-            springLength: 250,
-          },
-        },
+        edges: { arrows: { to: { enabled: true } } },
+        nodes: { shape: 'dot' },
       };
 
+      // Create or update the knowledge graph
       if (networkInstance.current) {
         networkInstance.current.setData(data);
       } else {
-        networkInstance.current = new Network(
-          networkContainer.current,
-          data,
-          options
-        );
+        networkInstance.current = new Network(networkContainer.current, data, options);
       }
     }
   }, [triplets]);
 
   return (
-    <div className="app-container">
-      <div className="input-section">
-        <h2>Knowledge Graph Generator</h2>
-        <textarea
-          placeholder="Type or paste your text here..."
-          value={inputText}
-          onChange={(e) => setInputText(e.target.value)}
-        ></textarea>
-        <button onClick={handleSubmit}>Run Model</button>
-      </div>
-      <div className="graph-section" ref={networkContainer}></div>
+    <div className="App">
+      <h1>Knowledge Graph Generator</h1>
+      <textarea
+        value={inputText}
+        onChange={(e) => setInputText(e.target.value)}
+        placeholder="Enter text to generate triplets..."
+      />
+      <button onClick={handleSubmit}>Generate Knowledge Graph</button>
+
+      <div ref={networkContainer} style={{ height: '500px', border: '1px solid black', marginTop: '20px' }} />
     </div>
   );
 }
