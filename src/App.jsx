@@ -24,10 +24,10 @@ function App() {
     }
 
     const gen_kwargs = {
-      "num_beams": 10,
-      "max_length": 128,
+      "num_beams": 20,
+      "max_length": 256,
       "length_penalty": 1.0,
-      "num_return_sequences": 10,
+      "num_return_sequences": 20,
     };
 
     try {
