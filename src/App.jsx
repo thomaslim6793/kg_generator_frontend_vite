@@ -4,7 +4,7 @@ import { Network } from 'vis-network';
 import './App.css'; // Import the CSS file
 
 function App() {
-  const [inputText, setInputText] = useState('apple is red, pear is yellow, and the blueberry is blue.');
+  const [inputText, setInputText] = useState('apple is red, pear is yellow, and the blueberry is blue.');  // Default text
   const [triplets, setTriplets] = useState([]);
   const networkContainer = useRef(null);
   const networkInstance = useRef(null);
@@ -15,10 +15,23 @@ function App() {
       return;
     }
     try {
-      const response = await axios.post(`${import.meta.env.VITE_BACKEND_ENDPOINT}/generate`, {
-        text: inputText,
+      // Send request to the SageMaker endpoint
+      const response = await axios.post(`${import.meta.env.VITE_SAGEMAKER_ENDPOINT}`, {
+        inputs: inputText,  // Adjust the payload based on what your model expects
+        gen_kwargs: {
+          num_beams: 5, 
+          max_length: 128,
+          length_penalty: 1.0,
+          num_return_sequences: 1
+        }
+      }, {
+        headers: {
+          'Content-Type': 'application/json'
+          // You may need to add authorization headers if necessary
+        }
       });
-      setTriplets(response.data.triplets);
+
+      setTriplets(response.data.triplets || []);
     } catch (error) {
       console.error('Error fetching triplets:', error);
       alert('An error occurred while processing your request.');
@@ -30,7 +43,7 @@ function App() {
       const nodesSet = new Set();
       const edges = [];
 
-      triplets.forEach(({ head, type, tail }) => {  // Adjusting the keys based on FastAPI response
+      triplets.forEach(({ head, type, tail }) => {  // Adjusting the keys based on SageMaker response
         nodesSet.add(head);
         nodesSet.add(tail);
         edges.push({
