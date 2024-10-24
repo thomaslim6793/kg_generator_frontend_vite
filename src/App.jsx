@@ -3,8 +3,16 @@ import axios from 'axios';
 import { Network } from 'vis-network';
 import './App.css'; // Import the CSS file
 
+const default_text = `Our whole universe was in a hot, dense state
+Then nearly fourteen billion years ago expansion started, wait
+The earth began to cool, the autotrophs began to drool
+Neanderthals developed tools
+We built a wall (we built the pyramids)
+Math, science, history, unraveling the mysteries
+That all started with the big bang (bang)!`;
+
 function App() {
-  const [inputText, setInputText] = useState('apple is red, pear is yellow, and the blueberry is blue.');  // Default text
+  const [inputText, setInputText] = useState(default_text);  // Default text
   const [triplets, setTriplets] = useState([]);
   const networkContainer = useRef(null);
   const networkInstance = useRef(null);
