@@ -14,24 +14,21 @@ function App() {
       alert('Please enter some text.');
       return;
     }
+
+    const gen_kwargs = {
+      num_beams: 5,
+      max_length: 128,
+      length_penalty: 1.0,
+      num_return_sequences: 5,
+    };
+
     try {
       // Send request to the SageMaker endpoint
-      const response = await axios.post(`${import.meta.env.VITE_SAGEMAKER_ENDPOINT}`, {
-        inputs: inputText,  // Adjust the payload based on what your model expects
-        gen_kwargs: {
-          num_beams: 5, 
-          max_length: 128,
-          length_penalty: 1.0,
-          num_return_sequences: 1
-        }
-      }, {
-        headers: {
-          'Content-Type': 'application/json'
-          // You may need to add authorization headers if necessary
-        }
+      const response = await axios.post(`${import.meta.env.VITE_BACKEND_ENDPOINT}/generate`, {
+        text: inputText,
+        gen_kwargs: gen_kwargs,  // Send gen_kwargs with the request
       });
-
-      setTriplets(response.data.triplets || []);
+      setTriplets(response.data.triplets);
     } catch (error) {
       console.error('Error fetching triplets:', error);
       alert('An error occurred while processing your request.');
