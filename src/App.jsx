@@ -24,11 +24,8 @@ function App() {
     }
 
     const gen_kwargs = {
-      "num_beams": 10,
-      "max_length": 256,
-      "length_penalty": 1.0,
-      "num_return_sequences": 1,
-    };
+      "num_beams": 50, "max_length": 512, "length_penalty": 5.0, "num_return_sequences": 1
+    }; // I see that higher the num_beams, the more accurate the results are, but it takes longer to process
 
     try {
       // Send request to the SageMaker endpoint
