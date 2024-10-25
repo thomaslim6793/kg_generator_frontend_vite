@@ -5,7 +5,8 @@
   flex-direction: row;
   padding: 20px;
   box-sizing: border-box;
-  height: 100vh; /* Make the container take full viewport height */
+  height: 100vh; /* Full viewport height */
+  background-color: #f5f5f5; /* Light background for the entire app */
 }
 
 .input-section {
@@ -13,12 +14,21 @@
   margin-right: 20px;
   display: flex;
   flex-direction: column;
+  background-color: #ffffff; /* White background for input section */
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
 .graph-section {
   flex: 2;
   border: 1px solid #ddd;
+  border-radius: 8px;
+  background-color: #ffffff; /* White background for graph section */
   height: calc(100vh - 40px); /* Adjust height based on padding */
+  padding: 20px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  overflow: hidden; /* Prevent overflow of the graph */
 }
 
 textarea {
@@ -26,13 +36,69 @@ textarea {
   width: 100%;
   box-sizing: border-box;
   resize: none; /* Prevent resizing */
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 16px;
+  font-family: 'Arial', sans-serif;
+  margin-bottom: 15px;
+  transition: border-color 0.3s ease;
+}
+
+textarea:focus {
+  border-color: #66afe9;
+  outline: none;
 }
 
 button {
-  margin-top: 10px;
-  align-self: flex-start;
+  padding: 10px 20px;
+  background-color: #007bff; /* Primary blue color */
+  color: #ffffff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s ease;
+  margin-bottom: 10px; /* Space between buttons */
+}
+
+button:hover:not(:disabled) {
+  background-color: #0056b3; /* Darker blue on hover */
+}
+
+button:disabled {
+  background-color: #a0c5e8; /* Light blue when disabled */
+  cursor: not-allowed;
 }
 
 h2 {
   margin-top: 0;
+  margin-bottom: 20px;
+  font-size: 24px;
+  color: #333333;
+}
+
+.app-container > .input-section > button:first-of-type {
+  margin-bottom: 10px; /* Space between "Run Model" and "Download JSON" buttons */
+}
+
+.graph-section {
+  /* Ensure the graph takes full space without overflow */
+  position: relative;
+}
+
+@media (max-width: 768px) {
+  .app-container {
+    flex-direction: column;
+    height: auto; /* Adjust height for smaller screens */
+  }
+
+  .input-section {
+    margin-right: 0;
+    margin-bottom: 20px;
+  }
+
+  .graph-section {
+    height: 400px; /* Set a fixed height for mobile */
+  }
 }

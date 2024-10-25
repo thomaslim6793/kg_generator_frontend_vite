@@ -11,15 +11,40 @@ function App() {
   const networkContainer = useRef(null);
   const networkInstance = useRef(null);
 
+  // Helper function to calculate length_penalty
+  const calculateLengthPenalty = (textLength, minLength = 100, maxLength = 1000, minPenalty = 1, maxPenalty = 10) => {
+    if (textLength <= minLength) return minPenalty;
+    if (textLength >= maxLength) return maxPenalty;
+
+    // Linear interpolation
+    const slope = (maxPenalty - minPenalty) / (maxLength - minLength);
+    const penalty = minPenalty + slope * (textLength - minLength);
+
+    return penalty;
+  };
+
   const handleSubmit = async () => {
     if (!inputText.trim()) {
       alert('Please enter some text.');
       return;
     }
 
+    // Calculate the length of the input text
+    const textLength = inputText.length;
+
+    // Calculate length_penalty based on text length
+    const lengthPenalty = calculateLengthPenalty(textLength);
+
+    // Optional: Log the values for debugging
+    console.log(`Input Text Length: ${textLength}`);
+    console.log(`Calculated Length Penalty: ${lengthPenalty}`);
+
     const gen_kwargs = {
-      "num_beams": 50, "max_length": 512, "length_penalty": 5.0, "num_return_sequences": 1
-    }; // I see that higher the num_beams, the more accurate the results are, but it takes longer to process
+      "num_beams": 50,
+      "max_length": 512,
+      "length_penalty": lengthPenalty,
+      "num_return_sequences": 1
+    };
 
     try {
       // Send request to the SageMaker endpoint
@@ -32,6 +57,35 @@ function App() {
       console.error('Error fetching triplets:', error);
       alert('An error occurred while processing your request.');
     }
+  };
+
+  const handleDownloadJSON = () => {
+    if (triplets.length === 0) {
+      alert('No triplets to download.');
+      return;
+    }
+
+    // Convert triplets to JSON string
+    const jsonString = JSON.stringify(triplets, null, 2);
+
+    // Create a Blob from the JSON string
+    const blob = new Blob([jsonString], { type: 'application/json' });
+
+    // Generate a temporary URL for the Blob
+    const url = URL.createObjectURL(blob);
+
+    // Create a temporary anchor element to trigger the download
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = 'knowledge_graph_triplets.json';
+
+    // Append the anchor to the body, trigger click, and remove it
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+
+    // Release the object URL
+    URL.revokeObjectURL(url);
   };
 
   useEffect(() => {
@@ -106,6 +160,9 @@ function App() {
           onChange={(e) => setInputText(e.target.value)}
         ></textarea>
         <button onClick={handleSubmit}>Run Model</button>
+        <button onClick={handleDownloadJSON} disabled={triplets.length === 0}>
+          Download JSON
+        </button>
       </div>
       <div className="graph-section" ref={networkContainer}></div>
     </div>
