@@ -100,17 +100,11 @@ textarea:focus {
   outline: none;
 }
 
-/* Grey out the sample text */
+/* Grey out the sample text and italicize */
 .greyed-out {
   color: grey;
   font-style: italic;
   transition: color 0.3s ease;
-}
-
-/* When the user starts typing */
-textarea {
-  color: black;
-  font-style: normal;
 }
 
 /* Styling for buttons */

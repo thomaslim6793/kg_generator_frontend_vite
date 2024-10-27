@@ -228,8 +228,8 @@ function App() {
           id="text-input"
           placeholder="Type or paste your text here..."
           value={inputText}
-          onChange={(e) => setInputText(e.target.value)}
-          className={inputText ? '' : 'greyed-out'}
+          onChange={handleInputChange}
+          className={isDefault ? 'greyed-out' : ''} // Apply greyed-out style when it's default text
         ></textarea>
 
         {/* Show the warm-up spinner and text */}
