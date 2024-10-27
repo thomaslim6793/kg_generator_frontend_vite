@@ -199,6 +199,22 @@ function App() {
     <div className="app-container">
       <div className="input-section">
         <h2>Knowledge Graph Generator</h2>
+
+        <div className="links-container">
+          <a href="https://huggingface.co/Babelscape/rebel-large" target="_blank" rel="noopener noreferrer">
+            Model: Babelscape/rebel-large
+          </a>
+          <a href="https://github.com/thomaslim6793" target="_blank" rel="noopener noreferrer">
+            My GitHub
+          </a>
+        </div>
+        
+        <textarea
+          placeholder="Type or paste your text here..."
+          value={inputText}
+          onChange={(e) => setInputText(e.target.value)}
+        ></textarea>
+
         <textarea
           placeholder="Type or paste your text here..."
           value={inputText}

@@ -11,6 +11,23 @@
   background-color: #f5f5f5; /* Light background for the entire app */
 }
 
+/* Styling for the links container */
+.links-container {
+  margin-bottom: 20px;
+}
+
+.links-container a {
+  display: block; /* Make each link take a new line */
+  margin-bottom: 5px; /* Space between the two links */
+  color: #007bff; /* Primary blue color for the links */
+  text-decoration: none; /* Remove underline from links */
+  font-size: 14px; /* Adjust the font size */
+}
+
+.links-container a:hover {
+  text-decoration: underline; /* Add underline on hover */
+}
+
 /* Section for user input (30% width) */
 .input-section {
   width: 30%; /* Set input section width to 30% */
