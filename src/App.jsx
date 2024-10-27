@@ -206,7 +206,7 @@ function App() {
         {/* Links below the heading, placed next to the text */}
         <div className="links-container">
           <p>
-            Credit goes to: <a href={modelUrl} target="_blank" rel="noopener noreferrer">{modelUrl}</a>
+            All the credit for the model goes to: <a href={modelUrl} target="_blank" rel="noopener noreferrer">{modelUrl}</a>
           </p>
           <p>
             Check out my GitHub: <a href={githubUrl} target="_blank" rel="noopener noreferrer">{githubUrl}</a>
