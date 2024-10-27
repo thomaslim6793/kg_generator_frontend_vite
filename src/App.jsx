@@ -220,7 +220,10 @@ function App() {
         {loading && (
           <div className="loading-container">
             <div className="spinner"></div>
-            <div className="loading-text">Loading Knowledge Graph... (this process may take upto 1 minute but it will load :D)</div>
+            <div className="loading-text">
+              <div>Loading...</div>
+              <div>(this process may take up to 1 minute)</div>
+            </div>
           </div>
         )}
       </div>
