@@ -82,6 +82,14 @@ h2 {
   margin-bottom: 10px; /* Space between "Run Model" and "Download JSON" buttons */
 }
 
+.loading-animation {
+  font-size: 16px;
+  color: #007bff;
+  font-weight: bold;
+  margin-top: 20px;
+  text-align: center;
+}
+
 .graph-section {
   /* Ensure the graph takes full space without overflow */
   position: relative;
@@ -101,4 +109,30 @@ h2 {
   .graph-section {
     height: 400px; /* Set a fixed height for mobile */
   }
+}
+
+/* Optional: Add a spinner for better loading animation experience */
+@keyframes spinner {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.loading-animation::before {
+  content: "";
+  box-sizing: border-box;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 40px;
+  height: 40px;
+  margin-top: -20px;
+  margin-left: -20px;
+  border-radius: 50%;
+  border: 2px solid #ccc;
+  border-top-color: #007bff;
+  animation: spinner 0.6s linear infinite;
 }

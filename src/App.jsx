@@ -8,6 +8,7 @@ const default_text = `The human immune system is a complex network of cells, tis
 function App() {
   const [inputText, setInputText] = useState(default_text);  // Default text
   const [triplets, setTriplets] = useState([]);
+  const [loading, setLoading] = useState(false);  // Add loading state
   const networkContainer = useRef(null);
   const networkInstance = useRef(null);
 
@@ -23,54 +24,71 @@ function App() {
     return penalty;
   };
 
+  // Function to send inference request
+  const sendInference = async (text, gen_kwargs) => {
+    try {
+      const response = await axios({
+        method: 'POST',
+        url: `${import.meta.env.VITE_BACKEND_ENDPOINT}/generate`,
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+        },
+        data: {
+          text: text,
+          gen_kwargs: gen_kwargs,
+        },
+      });
+      return response.data.triplets;
+    } catch (error) {
+      console.error('Error fetching triplets:', error);
+      return null;
+    }
+  };
+
+  // Handle the actual inference when "Run Model" is clicked
   const handleSubmit = async () => {
     if (!inputText.trim()) {
       alert('Please enter some text.');
       return;
     }
-  
+
+    setLoading(true);  // Start loading animation
+
     // Calculate the length of the input text
     const textLength = inputText.length;
-  
+
     // Calculate length_penalty based on text length
     const lengthPenalty = calculateLengthPenalty(textLength);
-  
+
     const gen_kwargs = {
       "num_beams": 50,
       "max_length": 512,
       "length_penalty": lengthPenalty,
       "num_return_sequences": 1
     };
-  
-    try {
-      // Use fetch instead of axios
-      const response = await fetch(`${import.meta.env.VITE_BACKEND_ENDPOINT}/generate`, {
-        method: 'POST',
-        headers: {
-          'Accept': 'application/json',  // Set 'accept' header to 'application/json'
-          'Content-Type': 'application/json'  // Set content-type to JSON
-        },
-        body: JSON.stringify({
-          text: inputText,  // Stringify the text input and gen_kwargs
-          gen_kwargs: gen_kwargs
-        })
-      });
-  
-      // Check if the response is OK (status 200)
-      if (!response.ok) {
-        throw new Error(`Error: ${response.statusText}`);
-      }
-  
-      // Parse the JSON response
-      const data = await response.json();
-  
-      // Set the triplets from the response
-      setTriplets(data.triplets);
-    } catch (error) {
-      console.error('Error fetching triplets:', error);
-      alert('An error occurred while processing your request.');
+
+    const triplets = await sendInference(inputText, gen_kwargs);
+    if (triplets) {
+      setTriplets(triplets);
     }
+
+    setLoading(false);  // Stop loading animation
   };
+
+  // Handle the "warming up" hidden inference on load
+  useEffect(() => {
+    const warmUpText = 'warming up';
+    const gen_kwargs = {
+      "num_beams": 1,
+      "max_length": 10,
+      "length_penalty": 1,
+      "num_return_sequences": 1
+    };
+
+    // Send the "warming up" hidden inference
+    sendInference(warmUpText, gen_kwargs);
+  }, []);  // Only run once on mount
 
   const handleDownloadJSON = () => {
     if (triplets.length === 0) {
@@ -172,10 +190,13 @@ function App() {
           value={inputText}
           onChange={(e) => setInputText(e.target.value)}
         ></textarea>
-        <button onClick={handleSubmit}>Run Model</button>
-        <button onClick={handleDownloadJSON} disabled={triplets.length === 0}>
-          Download JSON
+        <button onClick={handleSubmit} disabled={loading}>
+          {loading ? 'Processing...' : 'Run Model'}
         </button>
+        <button onClick={handleDownloadJSON} disabled={triplets.length === 0}>
+          Download Knowledge Graph in JSON
+        </button>
+        {loading && <div className="loading-animation">Loading...</div>}  {/* Show loading animation */}
       </div>
       <div className="graph-section" ref={networkContainer}></div>
     </div>
