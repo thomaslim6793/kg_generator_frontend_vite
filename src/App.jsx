@@ -203,6 +203,7 @@ function App() {
       <div className="input-section">
         <h2>Knowledge Graph Generator</h2>
 
+        {/* Links below the heading, placed next to the text */}
         <div className="links-container">
           <p>
             Credit goes to: <a href={modelUrl} target="_blank" rel="noopener noreferrer">{modelUrl}</a>
@@ -212,11 +213,16 @@ function App() {
           </p>
         </div>
 
-        <textarea
-          placeholder="Type or paste your text here..."
-          value={inputText}
-          onChange={(e) => setInputText(e.target.value)}
-        ></textarea>
+        {/* Label for Text Input */}
+        <div className="input-label">
+          <label htmlFor="text-input">Text input</label>
+          <textarea
+            id="text-input"
+            placeholder="Type or paste your text here..."
+            value={default_text}
+            onChange={(e) => setInputText(e.target.value)}
+          ></textarea>
+        </div>
 
         {/* Show the warm-up spinner and text */}
         {warmingUp && (
