@@ -24,7 +24,7 @@ function App() {
   };
 
   // Function to calculate num_return_sequences based on text length
-  const calculateNumRetSeq = (textLength, minLength = 100, maxLength = 1000, minSeq = 3, maxSeq = 7) => {
+  const calculateNumRetSeq = (textLength, minLength = 100, maxLength = 1000, minSeq = 5, maxSeq = 10) => {
     if (textLength <= minLength) return minSeq;
     if (textLength >= maxLength) return maxSeq;
 
