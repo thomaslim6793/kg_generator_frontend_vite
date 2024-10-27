@@ -18,6 +18,19 @@
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
+.graph-instruction {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  color: grey;
+  font-size: 14px;
+  z-index: 10; /* Make sure it's on top of other elements */
+  background-color: rgba(255, 255, 255, 0.7); /* Slight white background for readability */
+  padding: 5px 10px;
+  border-radius: 4px;
+  pointer-events: none; /* Prevent interfering with graph interactions */
+}
+
 .graph-section {
   flex: 2;
   border: 1px solid #ddd;
@@ -27,6 +40,7 @@
   padding: 20px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   overflow: hidden; /* Prevent overflow of the graph */
+  position: relative; /* Needed to position the instruction */
 }
 
 textarea {
