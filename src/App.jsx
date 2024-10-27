@@ -22,6 +22,18 @@ function App() {
     return minPenalty + slope * (textLength - minLength);
   };
 
+  // Function to calculate num_return_sequences based on text length
+  const calculateNumRetSeq = (textLength, minLength = 100, maxLength = 1000, minSeq = 1, maxSeq = 5) => {
+    if (textLength <= minLength) return minSeq;
+    if (textLength >= maxLength) return maxSeq;
+
+    // Linear interpolation to calculate num_return_sequences
+    const slope = (maxSeq - minSeq) / (maxLength - minLength);
+    const numSeq = Math.round(minSeq + slope * (textLength - minLength));  // Ensure result is an integer
+
+    return numSeq;
+  };
+  
   // Function to send inference request
   const sendInference = async (text, gen_kwargs) => {
     try {
@@ -56,46 +68,48 @@ function App() {
 
   // Handle the actual inference when "Run Model" is clicked
   const handleSubmit = async () => {
+    console.log('handleSubmit: Run Model button clicked.');
+
     if (!inputText.trim()) {
+      console.warn('handleSubmit: Input text is empty.');
       alert('Please enter some text.');
       return;
     }
 
     setLoading(true);  // Start loading animation
+    console.log('handleSubmit: Loading state set to true.');
 
+    // Calculate the length of the input text
     const textLength = inputText.length;
+    console.log('handleSubmit: Text Length:', textLength);
 
     // Calculate length_penalty based on text length
     const lengthPenalty = calculateLengthPenalty(textLength);
+    console.log('handleSubmit: Calculated length_penalty:', lengthPenalty);
+
+    // Calculate num_return_sequences based on text length
+    const numReturnSequences = calculateNumRetSeq(textLength);
+    console.log('handleSubmit: Calculated num_return_sequences:', numReturnSequences);
 
     const gen_kwargs = {
-      "num_beams": 50,
-      "max_length": 512,
+      "num_beams": 10,
+      "max_length": 256,
       "length_penalty": lengthPenalty,
-      "num_return_sequences": 1
+      "num_return_sequences": numReturnSequences
     };
+    console.log('handleSubmit: Generation Arguments:', gen_kwargs);
 
     const tripletsResult = await sendInference(inputText, gen_kwargs);
     if (tripletsResult) {
+      console.log('handleSubmit: Setting triplets state.');
       setTriplets(tripletsResult);
+    } else {
+      console.warn('handleSubmit: No triplets received.');
     }
 
     setLoading(false);  // Stop loading animation
+    console.log('handleSubmit: Loading state set to false.');
   };
-
-  // Handle the "warming up" hidden inference on load
-  useEffect(() => {
-    const warmUpText = 'warming up';
-    const gen_kwargs = {
-      "num_beams": 1,
-      "max_length": 10,
-      "length_penalty": 1,
-      "num_return_sequences": 1
-    };
-
-    // Send the "warming up" hidden inference
-    sendInference(warmUpText, gen_kwargs);
-  }, []);  // Only run once on mount
 
   const handleDownloadJSON = () => {
     if (triplets.length === 0) {
