@@ -3,7 +3,7 @@ import axios from 'axios';
 import { Network } from 'vis-network';
 import './App.css'; // Import the CSS file
 
-const default_text = `The human immune system is a complex network of cells, tissues, and organs that work together to defend the body against pathogens such as bacteria, viruses, and other harmful agents. Central to this defense are white blood cells, which identify and eliminate foreign invaders. One key component of the immune response is the production of antibodies by B cells, which bind to specific antigens on the surface of pathogens, neutralizing them or marking them for destruction by other immune cells. T cells, another critical group of immune cells, directly attack infected or cancerous cells.`;
+const default_text = `The human immune system is a complex network of cells, tissues, and organs that work together to defend the body against pathogens such as bacteria, viruses, and other harmful agents. Central to this defense are white blood cells, which identify and eliminate foreign invaders.`;
 
 function App() {
   const [inputText, setInputText] = useState(default_text);  // Default text
