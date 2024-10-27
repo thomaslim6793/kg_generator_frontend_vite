@@ -11,9 +11,9 @@
   background-color: #f5f5f5; /* Light background for the entire app */
 }
 
-/* Section for user input */
+/* Section for user input (30% width) */
 .input-section {
-  flex: 1;
+  flex: 3; /* 30% of the container width */
   margin-right: 20px;
   display: flex;
   flex-direction: column;
@@ -25,9 +25,9 @@
   flex-grow: 1; /* Allow it to grow but leave space for margin */
 }
 
-/* Graph section that includes the visualization */
+/* Graph section that includes the visualization (70% width) */
 .graph-section {
-  flex: 2;
+  flex: 7; /* 70% of the container width */
   border: 1px solid #ddd;
   border-radius: 8px;
   background-color: #ffffff; /* White background for graph section */
