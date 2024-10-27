@@ -214,15 +214,13 @@ function App() {
         </div>
 
         {/* Label for Text Input */}
-        <div className="input-label">
-          <label htmlFor="text-input">Text input</label>
-          <textarea
-            id="text-input"
-            placeholder="Type or paste your text here..."
-            value={default_text}
-            onChange={(e) => setInputText(e.target.value)}
-          ></textarea>
-        </div>
+      <label htmlFor="text-input">Text input</label>
+      <textarea
+        id="text-input"
+        placeholder="Type or paste your text here..."
+        value={default_text}
+        onChange={(e) => setInputText(e.target.value)}
+      ></textarea>
 
         {/* Show the warm-up spinner and text */}
         {warmingUp && (
