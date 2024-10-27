@@ -13,19 +13,17 @@
 
 /* Styling for the links container */
 .links-container {
-  margin-bottom: 0px;
-}
-
-.links-container a {
-  display: block; /* Make each link take a new line */
-  margin-bottom: 5px; /* Space between the two links */
-  color: #007bff; /* Primary blue color for the links */
-  text-decoration: none; /* Remove underline from links */
-  font-size: 13px; /* Adjust the font size */
+  display: flex;
+  flex-direction: column;
+  font-size: 12px;
 }
 
 .links-container p {
-  font-size: 13px; /* Set font size to 12px */
+  margin: 5px 0; /* Space between the lines */
+}
+
+.links-container a {
+  margin-left: 5px; /* Space between text and hyperlink */
 }
 
 .links-container a:hover {
@@ -43,6 +41,21 @@
   border-radius: 8px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   margin-bottom: 20px; /* Add margin at the bottom */
+}
+
+.input-label {
+  display: flex;
+  flex-direction: column;
+  font-size: 14px;
+  margin-bottom: 10px;
+}
+
+textarea {
+  width: 100%;
+  height: 100px;
+  padding: 10px;
+  font-size: 16px;
+  margin-top: 5px;
 }
 
 /* Graph section that includes the visualization (70% width) */
