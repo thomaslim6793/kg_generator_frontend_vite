@@ -82,7 +82,7 @@ function App() {
     const numReturnSequences = calculateNumRetSeq(textLength);
 
     const gen_kwargs = {
-      "num_beams": 1, // numBeams increase for better results but slower
+      "num_beams": 2, // numBeams increase for better results but slower
       "max_length": 512,
       "length_penalty": 1, // lengthPenalty, if processing without parallelism
       "num_return_sequences": 1 // numReturnSequences, if processing without parallelism
