@@ -13,7 +13,7 @@
 
 /* Section for user input (30% width) */
 .input-section {
-  flex: 3; /* 30% of the container width */
+  width: 30%; /* Set input section width to 30% */
   margin-right: 20px;
   display: flex;
   flex-direction: column;
@@ -22,12 +22,11 @@
   border-radius: 8px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   margin-bottom: 20px; /* Add margin at the bottom */
-  flex-grow: 1; /* Allow it to grow but leave space for margin */
 }
 
 /* Graph section that includes the visualization (70% width) */
 .graph-section {
-  flex: 7; /* 70% of the container width */
+  width: 70%; /* Set graph section width to 70% */
   border: 1px solid #ddd;
   border-radius: 8px;
   background-color: #ffffff; /* White background for graph section */
@@ -39,7 +38,6 @@
   justify-content: center; /* Center the graph inside the section */
   align-items: center; /* Align graph vertically in the center */
   margin-bottom: 20px; /* Add margin at the bottom */
-  flex-grow: 1; /* Allow it to grow but leave space for margin */
 }
 
 /* Instructions displayed on the graph section */
