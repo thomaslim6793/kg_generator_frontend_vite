@@ -3,12 +3,13 @@ import axios from 'axios';
 import { Network } from 'vis-network';
 import './App.css'; // Import the CSS file
 
-const default_text = `The human immune system is a complex network of cells, tissues, and organs that work together to defend the body against pathogens such as bacteria, viruses, and other harmful agents. Central to this defense are white blood cells, which identify and eliminate foreign invaders.`;
+const default_text = `The human immune system is a complex network of cells, tissues, and organs that work together to defend the body against pathogens such as bacteria, viruses, and other harmful agents.`;
 
 function App() {
   const [inputText, setInputText] = useState(default_text);  // Default text
   const [triplets, setTriplets] = useState([]);
   const [loading, setLoading] = useState(false);  // Add loading state
+  const [warmingUp, setWarmingUp] = useState(true); // Track the warm-up process
   const networkContainer = useRef(null);
   const networkInstance = useRef(null);
 
@@ -33,7 +34,7 @@ function App() {
 
     return numSeq;
   };
-  
+
   // Function to send inference request
   const sendInference = async (text, gen_kwargs) => {
     try {
@@ -68,28 +69,17 @@ function App() {
 
   // Handle the actual inference when "Run Model" is clicked
   const handleSubmit = async () => {
-    console.log('handleSubmit: Run Model button clicked.');
-
     if (!inputText.trim()) {
-      console.warn('handleSubmit: Input text is empty.');
       alert('Please enter some text.');
       return;
     }
 
     setLoading(true);  // Start loading animation
-    console.log('handleSubmit: Loading state set to true.');
 
     // Calculate the length of the input text
     const textLength = inputText.length;
-    console.log('handleSubmit: Text Length:', textLength);
-
-    // Calculate length_penalty based on text length
     const lengthPenalty = calculateLengthPenalty(textLength);
-    console.log('handleSubmit: Calculated length_penalty:', lengthPenalty);
-
-    // Calculate num_return_sequences based on text length
     const numReturnSequences = calculateNumRetSeq(textLength);
-    console.log('handleSubmit: Calculated num_return_sequences:', numReturnSequences);
 
     const gen_kwargs = {
       "num_beams": 10,
@@ -97,19 +87,50 @@ function App() {
       "length_penalty": lengthPenalty,
       "num_return_sequences": numReturnSequences
     };
-    console.log('handleSubmit: Generation Arguments:', gen_kwargs);
 
     const tripletsResult = await sendInference(inputText, gen_kwargs);
     if (tripletsResult) {
-      console.log('handleSubmit: Setting triplets state.');
       setTriplets(tripletsResult);
-    } else {
-      console.warn('handleSubmit: No triplets received.');
     }
 
     setLoading(false);  // Stop loading animation
-    console.log('handleSubmit: Loading state set to false.');
   };
+
+  // Handle warm-up process
+  useEffect(() => {
+    const warmUpText = 'warming up';
+    const gen_kwargs = {
+      "num_beams": 1,
+      "max_length": 10,
+      "length_penalty": 1,
+      "num_return_sequences": 1
+    };
+
+    const sendWarmUpInference = async () => {
+      try {
+        // Send a light warm-up request
+        await axios({
+          method: 'POST',
+          url: `${import.meta.env.VITE_BACKEND_ENDPOINT}/generate`,
+          headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+          },
+          data: {
+            text: warmUpText,
+            gen_kwargs: gen_kwargs,
+          },
+        });
+        console.log('Warm-up completed.');
+      } catch (error) {
+        console.error('Warm-up failed:', error.message);
+      } finally {
+        setWarmingUp(false);  // Stop showing warm-up status once done
+      }
+    };
+
+    sendWarmUpInference();
+  }, []);  // Run only once when the component mounts
 
   const handleDownloadJSON = () => {
     if (triplets.length === 0) {
@@ -119,24 +140,16 @@ function App() {
 
     // Convert triplets to JSON string
     const jsonString = JSON.stringify(triplets, null, 2);
-
-    // Create a Blob from the JSON string
     const blob = new Blob([jsonString], { type: 'application/json' });
-
-    // Generate a temporary URL for the Blob
     const url = URL.createObjectURL(blob);
 
     // Create a temporary anchor element to trigger the download
     const link = document.createElement('a');
     link.href = url;
     link.download = 'knowledge_graph_triplets.json';
-
-    // Append the anchor to the body, trigger click, and remove it
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
-
-    // Release the object URL
     URL.revokeObjectURL(url);
   };
 
@@ -163,41 +176,21 @@ function App() {
 
       const data = { nodes, edges };
       const options = {
-        layout: {
-          improvedLayout: true,
-        },
-        edges: {
-          color: '#000000',
-          smooth: {
-            type: 'continuous',
-          },
-        },
+        layout: { improvedLayout: true },
+        edges: { color: '#000000', smooth: { type: 'continuous' } },
         nodes: {
           shape: 'dot',
           size: 16,
-          font: {
-            size: 14,
-            color: '#000000',
-          },
+          font: { size: 14, color: '#000000' },
           borderWidth: 2,
         },
-        physics: {
-          enabled: true,
-          barnesHut: {
-            gravitationalConstant: -8000,
-            springLength: 250,
-          },
-        },
+        physics: { enabled: true, barnesHut: { gravitationalConstant: -8000, springLength: 250 } },
       };
 
       if (networkInstance.current) {
         networkInstance.current.setData(data);
       } else {
-        networkInstance.current = new Network(
-          networkContainer.current,
-          data,
-          options
-        );
+        networkInstance.current = new Network(networkContainer.current, data, options);
       }
     }
   }, [triplets]);
@@ -211,12 +204,23 @@ function App() {
           value={inputText}
           onChange={(e) => setInputText(e.target.value)}
         ></textarea>
-        <button onClick={handleSubmit} disabled={loading}>
+
+        {/* Show the warm-up spinner and text */}
+        {warmingUp && (
+          <div className="warming-up-container">
+            <div className="spinner"></div>
+            <div className="warming-up-text">Warming up the server, this will take only a moment...</div>
+          </div>
+        )}
+
+        <button onClick={handleSubmit} disabled={loading || warmingUp}>
           {loading ? 'Processing...' : 'Run Model'}
         </button>
+
         <button onClick={handleDownloadJSON} disabled={triplets.length === 0}>
           Download Knowledge Graph in JSON
         </button>
+
         {loading && (
           <div className="loading-container">
             <div className="spinner"></div>
@@ -230,7 +234,6 @@ function App() {
 
       {/* Graph Section */}
       <div className="graph-section" ref={networkContainer}>
-        {/* Instructions that stay on top of the graph */}
         <div className="graph-instructions">
           Click and drag to move the graph, scroll to zoom in/out.
         </div>

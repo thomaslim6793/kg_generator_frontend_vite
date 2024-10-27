@@ -18,18 +18,6 @@
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
-.graph-instructions {
-  position: absolute;
-  top: 10px; /* Adjust the position to your liking */
-  left: 10px;
-  color: grey;
-  font-size: 14px;
-  z-index: 10; /* Ensure it's on top of the graph */
-  background-color: rgba(255, 255, 255, 0.8); /* Optional: Add a slight background for readability */
-  padding: 5px;
-  border-radius: 4px;
-}
-
 .graph-section {
   flex: 2;
   border: 1px solid #ddd;
@@ -39,7 +27,6 @@
   padding: 20px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   overflow: hidden; /* Prevent overflow of the graph */
-  position: relative; /* Needed to position the instruction */
 }
 
 textarea {
@@ -93,7 +80,8 @@ h2 {
   margin-bottom: 10px; /* Space between "Run Model" and "Download JSON" buttons */
 }
 
-.loading-container {
+/* Loading and warming-up styles */
+.warming-up-container, .loading-container {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -111,13 +99,14 @@ h2 {
   margin-bottom: 10px; /* Adds spacing between spinner and text */
 }
 
-.loading-text {
+.warming-up-text, .loading-text {
   font-size: 16px;
   color: #007bff;
   font-weight: bold;
   text-align: center;
 }
 
+/* Keep the spinner animation */
 @keyframes spinner {
   0% {
     transform: rotate(0deg);
@@ -125,4 +114,13 @@ h2 {
   100% {
     transform: rotate(360deg);
   }
+}
+
+.graph-instructions {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  color: grey;
+  font-size: 14px;
+  font-weight: 300;
 }
