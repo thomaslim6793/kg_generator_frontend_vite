@@ -3,7 +3,14 @@ import axios from 'axios';
 import { Network } from 'vis-network';
 import './App.css'; // Import the CSS file
 
-const default_text = `The human immune system is a complex network of cells, tissues, and organs that work together to defend the body against pathogens such as bacteria, viruses, and other harmful agents.`;
+const default_text = `In the savannah ecosystem, the food chain begins with the primary producers, 
+which are grasses and small plants that use sunlight to create energy through photosynthesis. 
+Herbivores, such as zebras, antelopes, and elephants, feed on these plants, obtaining the energy stored in their tissues. 
+These herbivores, in turn, become prey for carnivores like lions, cheetahs, and hyenas, which are the top predators in the savannah. 
+Scavengers such as vultures also play an important role by feeding on the remains of animals left by predators. 
+Finally, decomposers like bacteria and fungi break down the organic matter from dead plants and animals, 
+returning nutrients to the soil and completing the cycle of energy transfer in the ecosystem. 
+This delicate balance between producers, consumers, and decomposers sustains the rich biodiversity of the savannah.`;
 
 function App() {
   const [inputText, setInputText] = useState(default_text);  // Default text
@@ -85,7 +92,7 @@ function App() {
       "num_beams": 2, // numBeams increase for better results but slower
       "max_length": 512,
       "length_penalty": 1, // lengthPenalty, if processing without parallelism
-      "num_return_sequences": 1 // numReturnSequences, if processing without parallelism
+      "num_return_sequences": 2 // numReturnSequences, if processing without parallelism
     };
 
     const tripletsResult = await sendInference(inputText, gen_kwargs);
