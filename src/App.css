@@ -1,5 +1,3 @@
-/* App.css */
-
 .app-container {
   display: flex;
   flex-direction: row;
@@ -82,12 +80,38 @@ h2 {
   margin-bottom: 10px; /* Space between "Run Model" and "Download JSON" buttons */
 }
 
+/* Loading animation with spinner */
 .loading-animation {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   font-size: 16px;
   color: #007bff;
   font-weight: bold;
   margin-top: 20px;
-  text-align: center;
+  position: relative;
+  height: 50px; /* Set height for the spinner space */
+}
+
+@keyframes spinner {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.loading-animation::before {
+  content: "";
+  box-sizing: border-box;
+  display: inline-block;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 4px solid #ccc;
+  border-top-color: #007bff;
+  animation: spinner 0.8s linear infinite;
 }
 
 .graph-section {
@@ -109,30 +133,4 @@ h2 {
   .graph-section {
     height: 400px; /* Set a fixed height for mobile */
   }
-}
-
-/* Optional: Add a spinner for better loading animation experience */
-@keyframes spinner {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
-}
-
-.loading-animation::before {
-  content: "";
-  box-sizing: border-box;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 40px;
-  height: 40px;
-  margin-top: -20px;
-  margin-left: -20px;
-  border-radius: 50%;
-  border: 2px solid #ccc;
-  border-top-color: #007bff;
-  animation: spinner 0.6s linear infinite;
 }
