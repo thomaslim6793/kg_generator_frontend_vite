@@ -77,6 +77,8 @@ label {
   background-color: rgba(255, 255, 255, 0.8); /* Light background to ensure readability */
   z-index: 10; /* Ensure the instructions are above the graph */
   border-bottom-right-radius: 5px; /* Rounded corner to make it look nicer */
+  pointer-events: none; /* Allow interactions with the graph behind the instructions */
+  user-select: none; /* Prevent text selection */
 }
 
 /* Styling for the text area for input */
