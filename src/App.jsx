@@ -24,7 +24,7 @@ function App() {
   };
 
   // Function to calculate num_return_sequences based on text length
-  const calculateNumRetSeq = (textLength, minLength = 100, maxLength = 1000, minSeq = 1, maxSeq = 5) => {
+  const calculateNumRetSeq = (textLength, minLength = 100, maxLength = 1000, minSeq = 3, maxSeq = 7) => {
     if (textLength <= minLength) return minSeq;
     if (textLength >= maxLength) return maxSeq;
 
@@ -82,7 +82,7 @@ function App() {
     const numReturnSequences = calculateNumRetSeq(textLength);
 
     const gen_kwargs = {
-      "num_beams": 30,
+      "num_beams": 10,
       "max_length": 512,
       "length_penalty": lengthPenalty,
       "num_return_sequences": numReturnSequences
