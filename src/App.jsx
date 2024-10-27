@@ -227,9 +227,12 @@ function App() {
           </div>
         )}
       </div>
+
+      {/* Graph Section */}
       <div className="graph-section" ref={networkContainer}>
-        <div className="graph-instruction">
-          You can drag and zoom to have a better view of the knowledge graph!
+        {/* Instructions that stay on top of the graph */}
+        <div className="graph-instructions">
+          The graph is draggable and zoomable.
         </div>
       </div>
     </div>
