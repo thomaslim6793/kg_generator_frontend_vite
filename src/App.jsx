@@ -28,36 +28,44 @@ function App() {
       alert('Please enter some text.');
       return;
     }
-
+  
     // Calculate the length of the input text
     const textLength = inputText.length;
-
+  
     // Calculate length_penalty based on text length
     const lengthPenalty = calculateLengthPenalty(textLength);
-
-    // Optional: Log the values for debugging
-    console.log(`Input Text Length: ${textLength}`);
-    console.log(`Calculated Length Penalty: ${lengthPenalty}`);
-
+  
     const gen_kwargs = {
       "num_beams": 50,
       "max_length": 512,
       "length_penalty": lengthPenalty,
       "num_return_sequences": 1
     };
-
+  
     try {
-      // Send request to the SageMaker endpoint
-      const response = await axios.post(`${import.meta.env.VITE_BACKEND_ENDPOINT}/generate`, 
-      JSON.stringify({   // Ensure proper serialization of the request body
-        text: inputText,
-        gen_kwargs: gen_kwargs,  // Send gen_kwargs with the request
-      }), {
+      // Use fetch instead of axios
+      const response = await fetch(`${import.meta.env.VITE_BACKEND_ENDPOINT}/generate`, {
+        method: 'POST',
         headers: {
-          'Content-Type': 'application/json',  // Ensure correct content type
+          'Accept': 'application/json',  // Set 'accept' header to 'application/json'
+          'Content-Type': 'application/json'  // Set content-type to JSON
         },
+        body: JSON.stringify({
+          text: inputText,  // Stringify the text input and gen_kwargs
+          gen_kwargs: gen_kwargs
+        })
       });
-      setTriplets(response.data.triplets);
+  
+      // Check if the response is OK (status 200)
+      if (!response.ok) {
+        throw new Error(`Error: ${response.statusText}`);
+      }
+  
+      // Parse the JSON response
+      const data = await response.json();
+  
+      // Set the triplets from the response
+      setTriplets(data.triplets);
     } catch (error) {
       console.error('Error fetching triplets:', error);
       alert('An error occurred while processing your request.');
