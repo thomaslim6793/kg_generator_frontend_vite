@@ -49,37 +49,35 @@ label {
   margin-bottom: 10px;
 }
 
-/* Graph section that includes the visualization (70% width) */
-.graph-section {
-  width: 70%; /* Set graph section width to 70% */
-  border: 1px solid #ddd;
+.graph-container {
+  position: relative; /* Make this a positioning context for the instructions */
+  width: 70%; /* Same as the graph width */
   border-radius: 8px;
-  background-color: #ffffff; /* White background for graph section */
-  padding: 20px;
+  background-color: #ffffff;
+  padding: 0; /* Remove padding from the container itself */
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  overflow: hidden; /* Prevent overflow of the graph */
-  position: relative; /* Make the graph container a relative positioning context */
-  display: flex;
-  justify-content: center; /* Center the graph inside the section */
-  align-items: center; /* Align graph vertically in the center */
-  margin-bottom: 20px; /* Add margin at the bottom */
+  overflow: hidden; /* Prevent overflow */
 }
 
-/* Instructions displayed on the graph section */
+.graph-section {
+  width: 100%;
+  height: calc(100vh - 40px); /* Adjust height to fit screen */
+  position: relative;
+}
+
 .graph-instructions {
   position: absolute;
-  top: 10px; /* Align it to the top */
-  left: 10px; /* Align it to the left */
+  top: 10px;
+  left: 10px;
   color: grey;
   font-size: 14px;
   font-weight: 300;
   padding: 5px 10px;
-  background-color: rgba(255, 255, 255, 0.8); /* Light background to ensure readability */
-  z-index: 10; /* Ensure the instructions are above the graph */
-  border-bottom-right-radius: 5px; /* Rounded corner to make it look nicer */
-  pointer-events: none; /* Allow interactions with the graph behind the instructions */
-  user-select: none; /* Prevent text selection */
+  background-color: rgba(255, 255, 255, 0.8);
+  z-index: 1000; /* Ensure it stays on top of the graph */
+  pointer-events: none; /* Allow interaction with the graph beneath */
 }
+
 
 /* Styling for the text area for input */
 textarea {

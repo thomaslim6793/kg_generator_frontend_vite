@@ -255,7 +255,8 @@ function App() {
       </div>
 
       {/* Graph Section */}
-      <div className="graph-section" ref={networkContainer}>
+      <div className="graph-container">
+        <div className="graph-section" ref={networkContainer}></div>
         <div className="graph-instructions">
           Click and drag to move the graph, scroll to zoom in/out.
         </div>
