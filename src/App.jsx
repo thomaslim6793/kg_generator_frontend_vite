@@ -14,7 +14,7 @@ function App() {
   const networkInstance = useRef(null);
 
   // Helper function to calculate length_penalty
-  const calculateLengthPenalty = (textLength, minLength = 100, maxLength = 1000, minPenalty = 1, maxPenalty = 10) => {
+  const calculateLengthPenalty = (textLength, minLength = 10, maxLength = 100, minPenalty = 1, maxPenalty = 2) => {
     if (textLength <= minLength) return minPenalty;
     if (textLength >= maxLength) return maxPenalty;
 
@@ -24,7 +24,7 @@ function App() {
   };
 
   // Function to calculate num_return_sequences based on text length
-  const calculateNumRetSeq = (textLength, minLength = 100, maxLength = 1000, minSeq = 5, maxSeq = 10) => {
+  const calculateNumRetSeq = (textLength, minLength = 10, maxLength = 100, minSeq = 1, maxSeq = 3) => {
     if (textLength <= minLength) return minSeq;
     if (textLength >= maxLength) return maxSeq;
 
@@ -83,7 +83,7 @@ function App() {
 
     const gen_kwargs = {
       "num_beams": 10,
-      "max_length": 512,
+      "max_length": 256,
       "length_penalty": lengthPenalty,
       "num_return_sequences": numReturnSequences
     };
