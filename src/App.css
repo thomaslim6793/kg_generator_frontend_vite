@@ -21,7 +21,11 @@
   margin-bottom: 5px; /* Space between the two links */
   color: #007bff; /* Primary blue color for the links */
   text-decoration: none; /* Remove underline from links */
-  font-size: 11px; /* Adjust the font size */
+  font-size: 12px; /* Adjust the font size */
+}
+
+.links-container p {
+  font-size: 12px; /* Set font size to 12px */
 }
 
 .links-container a:hover {
