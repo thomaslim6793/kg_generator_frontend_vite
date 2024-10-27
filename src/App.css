@@ -13,17 +13,19 @@
 
 /* Styling for the links container */
 .links-container {
-  display: flex;
-  flex-direction: column;
-  font-size: 12px;
-}
-
-.links-container p {
-  margin: 5px 0; /* Space between the lines */
+  margin-bottom: 0px;
 }
 
 .links-container a {
-  margin-left: 5px; /* Space between text and hyperlink */
+  display: block; /* Make each link take a new line */
+  margin-bottom: 5px; /* Space between the two links */
+  color: #007bff; /* Primary blue color for the links */
+  text-decoration: none; /* Remove underline from links */
+  font-size: 13px; /* Adjust the font size */
+}
+
+.links-container p {
+  font-size: 13px; /* Set font size to 12px */
 }
 
 .links-container a:hover {
