@@ -195,18 +195,21 @@ function App() {
     }
   }, [triplets]);
 
+  const modelUrl = "https://huggingface.co/Babelscape/rebel-large";
+  const githubUrl = "https://github.com/thomaslim6793";
+
   return (
     <div className="app-container">
       <div className="input-section">
         <h2>Knowledge Graph Generator</h2>
 
         <div className="links-container">
-          <a href="https://huggingface.co/Babelscape/rebel-large" target="_blank" rel="noopener noreferrer">
-            Model: Babelscape/rebel-large
-          </a>
-          <a href="https://github.com/thomaslim6793" target="_blank" rel="noopener noreferrer">
-            My GitHub
-          </a>
+          <p>
+            Credit goes to: <a href={modelUrl} target="_blank" rel="noopener noreferrer">{modelUrl}</a>
+          </p>
+          <p>
+            Check out my GitHub: <a href={githubUrl} target="_blank" rel="noopener noreferrer">{githubUrl}</a>
+          </p>
         </div>
 
         <textarea
