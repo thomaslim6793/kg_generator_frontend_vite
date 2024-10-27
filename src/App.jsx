@@ -217,7 +217,12 @@ function App() {
         <button onClick={handleDownloadJSON} disabled={triplets.length === 0}>
           Download Knowledge Graph in JSON
         </button>
-        {loading && <div className="loading-animation">Loading...</div>}  {/* Show loading animation */}
+        {loading && (
+          <div className="loading-container">
+            <div className="spinner"></div>
+            <div className="loading-text">Loading Knowledge Graph... (this process may take upto 1 minute but it will load :D)</div>
+          </div>
+        )}
       </div>
       <div className="graph-section" ref={networkContainer}></div>
     </div>

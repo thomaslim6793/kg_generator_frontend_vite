@@ -80,17 +80,29 @@ h2 {
   margin-bottom: 10px; /* Space between "Run Model" and "Download JSON" buttons */
 }
 
-/* Loading animation with spinner */
-.loading-animation {
+.loading-container {
   display: flex;
-  justify-content: center;
+  flex-direction: column;
   align-items: center;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.spinner {
+  width: 40px;
+  height: 40px;
+  border: 4px solid #ccc;
+  border-top-color: #007bff;
+  border-radius: 50%;
+  animation: spinner 0.6s linear infinite;
+  margin-bottom: 10px; /* Adds spacing between spinner and text */
+}
+
+.loading-text {
   font-size: 16px;
   color: #007bff;
   font-weight: bold;
-  margin-top: 20px;
-  position: relative;
-  height: 50px; /* Set height for the spinner space */
+  text-align: center;
 }
 
 @keyframes spinner {
@@ -99,38 +111,5 @@ h2 {
   }
   100% {
     transform: rotate(360deg);
-  }
-}
-
-.loading-animation::before {
-  content: "";
-  box-sizing: border-box;
-  display: inline-block;
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  border: 4px solid #ccc;
-  border-top-color: #007bff;
-  animation: spinner 0.8s linear infinite;
-}
-
-.graph-section {
-  /* Ensure the graph takes full space without overflow */
-  position: relative;
-}
-
-@media (max-width: 768px) {
-  .app-container {
-    flex-direction: column;
-    height: auto; /* Adjust height for smaller screens */
-  }
-
-  .input-section {
-    margin-right: 0;
-    margin-bottom: 20px;
-  }
-
-  .graph-section {
-    height: 400px; /* Set a fixed height for mobile */
   }
 }
