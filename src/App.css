@@ -13,7 +13,7 @@
 
 /* Styling for the links container */
 .links-container {
-  margin-bottom: 20px;
+  margin-bottom: 0px;
 }
 
 .links-container a {
@@ -21,7 +21,7 @@
   margin-bottom: 5px; /* Space between the two links */
   color: #007bff; /* Primary blue color for the links */
   text-decoration: none; /* Remove underline from links */
-  font-size: 14px; /* Adjust the font size */
+  font-size: 11px; /* Adjust the font size */
 }
 
 .links-container a:hover {
@@ -116,7 +116,7 @@ button:disabled {
 /* Header text styling */
 h2 {
   margin-top: 0;
-  margin-bottom: 20px;
+  margin-bottom: 0px;
   font-size: 24px;
   color: #333333;
 }
