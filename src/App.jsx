@@ -208,12 +208,6 @@ function App() {
             My GitHub
           </a>
         </div>
-        
-        <textarea
-          placeholder="Type or paste your text here..."
-          value={inputText}
-          onChange={(e) => setInputText(e.target.value)}
-        ></textarea>
 
         <textarea
           placeholder="Type or paste your text here..."
