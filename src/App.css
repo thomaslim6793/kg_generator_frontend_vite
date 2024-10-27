@@ -147,7 +147,7 @@ label {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  margin-top: 20px;
+  margin-top: 10px;
 }
 
 /* Spinner animation */
@@ -187,14 +187,14 @@ label {
   font-weight: bold;
   text-align: center;
   margin-top: 5px; /* Add some spacing */
-  margin-bottom: 5px; /* Add some spacing */
+  margin-bottom: 10px; /* Add some spacing */
 }
 
 /* Container for the warming up spinner and text */
 .warming-up-container {
   display: flex;
   align-items: center; /* Align spinner and text vertically */
-  margin-top: 20px;
+  margin-top: 10px;
 }
 
 /* Spinner animation */
