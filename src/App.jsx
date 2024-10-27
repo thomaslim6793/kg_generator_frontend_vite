@@ -98,7 +98,7 @@ function App() {
 
   // Handle warm-up process
   useEffect(() => {
-    const warmUpText = 'warming up';
+    const warmUpText = 'Warm up the server';
     const gen_kwargs = {
       "num_beams": 1,
       "max_length": 10,
@@ -211,6 +211,11 @@ function App() {
             <div className="spinner"></div>
             <div className="warming-up-text">Warming up the server, this will take only a moment...</div>
           </div>
+        )}
+
+        {/* Display the "Model is ready!" text when warm-up is complete and no inference is running */}
+        {!warmingUp && !loading && (
+          <div className="model-ready-text">Model is ready!</div>
         )}
 
         <button onClick={handleSubmit} disabled={loading || warmingUp}>

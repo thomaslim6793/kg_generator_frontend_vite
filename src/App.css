@@ -1,3 +1,6 @@
+/* App.css */
+
+/* Container for the app layout */
 .app-container {
   display: flex;
   flex-direction: row;
@@ -7,6 +10,7 @@
   background-color: #f5f5f5; /* Light background for the entire app */
 }
 
+/* Section for user input */
 .input-section {
   flex: 1;
   margin-right: 20px;
@@ -18,6 +22,7 @@
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
+/* Graph section that includes the visualization */
 .graph-section {
   flex: 2;
   border: 1px solid #ddd;
@@ -27,8 +32,24 @@
   padding: 20px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   overflow: hidden; /* Prevent overflow of the graph */
+  position: relative; /* Make the graph container a relative positioning context */
 }
 
+/* Instructions displayed on the graph section */
+.graph-instructions {
+  position: absolute;
+  top: 10px; /* Align it to the top */
+  left: 10px; /* Align it to the left */
+  color: grey;
+  font-size: 14px;
+  font-weight: 300;
+  padding: 5px 10px;
+  background-color: rgba(255, 255, 255, 0.8); /* Light background to ensure readability */
+  z-index: 10; /* Ensure the instructions are above the graph */
+  border-bottom-right-radius: 5px; /* Rounded corner to make it look nicer */
+}
+
+/* Styling for the text area for input */
 textarea {
   flex: 1;
   width: 100%;
@@ -48,6 +69,7 @@ textarea:focus {
   outline: none;
 }
 
+/* Styling for buttons */
 button {
   padding: 10px 20px;
   background-color: #007bff; /* Primary blue color */
@@ -69,6 +91,7 @@ button:disabled {
   cursor: not-allowed;
 }
 
+/* Header text styling */
 h2 {
   margin-top: 0;
   margin-bottom: 20px;
@@ -76,12 +99,13 @@ h2 {
   color: #333333;
 }
 
+/* Add margin between buttons */
 .app-container > .input-section > button:first-of-type {
   margin-bottom: 10px; /* Space between "Run Model" and "Download JSON" buttons */
 }
 
-/* Loading and warming-up styles */
-.warming-up-container, .loading-container {
+/* Container for loading spinner and text */
+.loading-container {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -89,6 +113,7 @@ h2 {
   margin-top: 20px;
 }
 
+/* Spinner animation */
 .spinner {
   width: 40px;
   height: 40px;
@@ -99,14 +124,15 @@ h2 {
   margin-bottom: 10px; /* Adds spacing between spinner and text */
 }
 
-.warming-up-text, .loading-text {
+/* Loading text */
+.loading-text {
   font-size: 16px;
   color: #007bff;
   font-weight: bold;
   text-align: center;
 }
 
-/* Keep the spinner animation */
+/* Animation for the spinner */
 @keyframes spinner {
   0% {
     transform: rotate(0deg);
@@ -116,11 +142,11 @@ h2 {
   }
 }
 
-.graph-instructions {
-  position: absolute;
-  top: 10px;
-  left: 10px;
-  color: grey;
-  font-size: 14px;
-  font-weight: 300;
+/* Styling for the "Model is ready!" text */
+.model-ready-text {
+  font-size: 16px;
+  color: #28a745; /* Green color to indicate readiness */
+  font-weight: bold;
+  text-align: center;
+  margin-top: 10px; /* Add some spacing */
 }
