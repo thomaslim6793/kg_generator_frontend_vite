@@ -102,7 +102,7 @@ textarea:focus {
 
 /* Grey out the sample text and italicize */
 .greyed-out {
-  color: grey;
+  color: rgb(105, 103, 103);
   font-style: italic;
   transition: color 0.3s ease;
 }
