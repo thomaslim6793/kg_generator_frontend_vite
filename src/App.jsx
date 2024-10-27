@@ -4,6 +4,7 @@ import { Network } from 'vis-network';
 import './App.css'; // Import the CSS file
 
 const default_text = `Try this Sample text (Simply hit the 'Run Model' button below!): 
+
 In the savannah ecosystem, the food chain begins with the primary producers, 
 which are grasses and small plants that use sunlight to create energy through photosynthesis. 
 Herbivores, such as zebras, antelopes, and elephants, feed on these plants, obtaining the energy stored in their tissues. 
@@ -222,14 +223,14 @@ function App() {
         </div>
 
         {/* Label for Text Input */}
-      <label htmlFor="text-input">Text input</label>
-      <textarea
-        id="text-input"
-        placeholder="Type or paste your text here..."
-        value={inputText}
-        onChange={(e) => setInputText(e.target.value)}
-        className={inputText ? '' : 'greyed-out'}
-      ></textarea>
+        <label htmlFor="text-input">Text input</label>
+        <textarea
+          id="text-input"
+          placeholder="Type or paste your text here..."
+          value={inputText}
+          onChange={(e) => setInputText(e.target.value)}
+          className={inputText ? '' : 'greyed-out'}
+        ></textarea>
 
         {/* Show the warm-up spinner and text */}
         {warmingUp && (
