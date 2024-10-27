@@ -130,6 +130,13 @@ h2 {
   color: #333333;
 }
 
+/* Styling for the label of the text input */
+label {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
 .app-container > .input-section > button:first-of-type {
   margin-bottom: 10px; /* Space between "Run Model" and "Download JSON" buttons */
 }
