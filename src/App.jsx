@@ -218,7 +218,7 @@ function App() {
       <textarea
         id="text-input"
         placeholder="Type or paste your text here..."
-        value={default_text}
+        value={inputText}
         onChange={(e) => setInputText(e.target.value)}
       ></textarea>
 
