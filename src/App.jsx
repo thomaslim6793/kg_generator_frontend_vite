@@ -48,9 +48,14 @@ function App() {
 
     try {
       // Send request to the SageMaker endpoint
-      const response = await axios.post(`${import.meta.env.VITE_BACKEND_ENDPOINT}/generate`, {
+      const response = await axios.post(`${import.meta.env.VITE_BACKEND_ENDPOINT}/generate`, 
+      JSON.stringify({   // Ensure proper serialization of the request body
         text: inputText,
         gen_kwargs: gen_kwargs,  // Send gen_kwargs with the request
+      }), {
+        headers: {
+          'Content-Type': 'application/json',  // Ensure correct content type
+        },
       });
       setTriplets(response.data.triplets);
     } catch (error) {
