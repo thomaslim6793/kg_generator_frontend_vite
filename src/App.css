@@ -21,8 +21,8 @@
   padding: 20px;
   border-radius: 8px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  overflow: hidden; /* Prevent overflow within input section */
-  height: 100%; /* Ensure full height to match viewport */
+  margin-bottom: 20px; /* Add margin at the bottom */
+  flex-grow: 1; /* Allow it to grow but leave space for margin */
 }
 
 /* Graph section that includes the visualization */
@@ -31,13 +31,15 @@
   border: 1px solid #ddd;
   border-radius: 8px;
   background-color: #ffffff; /* White background for graph section */
-  height: 100%; /* Make it the full height of the container */
   padding: 20px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  overflow: hidden; /* Prevent overflow of the graph */
   position: relative; /* Make the graph container a relative positioning context */
   display: flex;
   justify-content: center; /* Center the graph inside the section */
   align-items: center; /* Align graph vertically in the center */
+  margin-bottom: 20px; /* Add margin at the bottom */
+  flex-grow: 1; /* Allow it to grow but leave space for margin */
 }
 
 /* Instructions displayed on the graph section */
@@ -104,7 +106,6 @@ h2 {
   color: #333333;
 }
 
-/* Add margin between buttons */
 .app-container > .input-section > button:first-of-type {
   margin-bottom: 10px; /* Space between "Run Model" and "Download JSON" buttons */
 }
