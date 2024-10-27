@@ -232,7 +232,7 @@ function App() {
       <div className="graph-section" ref={networkContainer}>
         {/* Instructions that stay on top of the graph */}
         <div className="graph-instructions">
-          The graph is draggable and zoomable.
+          Click and drag to move the graph, scroll to zoom in/out.
         </div>
       </div>
     </div>
