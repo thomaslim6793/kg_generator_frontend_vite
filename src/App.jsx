@@ -16,6 +16,13 @@ This delicate balance between producers, consumers, and decomposers sustains the
 
 function App() {
   const [inputText, setInputText] = useState(default_text);  // Default text
+  const [isDefault, setIsDefault] = useState(true); // Track if it's still the default text
+  const handleInputChange = (e) => {
+    const newText = e.target.value;
+    setInputText(newText);
+    setIsDefault(newText === default_text); // If the user edits the text, it's no longer default
+  };
+
   const [triplets, setTriplets] = useState([]);
   const [loading, setLoading] = useState(false);  // Add loading state
   const [warmingUp, setWarmingUp] = useState(true); // Track the warm-up process
