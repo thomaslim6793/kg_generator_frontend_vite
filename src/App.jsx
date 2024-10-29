@@ -5,11 +5,16 @@ import './App.css'; // Import the CSS file
 
 const default_text = `Try this Sample text (Simply hit the 'Run Model' button below!): 
 
-In the savannah, the food chain starts with plants like grasses, which convert sunlight into energy through photosynthesis. 
-Herbivores, such as zebras and antelopes, graze on these plants, absorbing their stored energy. 
-Carnivorous predators, including lions and cheetahs, hunt these herbivores for sustenance, while scavengers like vultures feed on leftover carcasses. 
-Decomposers, such as bacteria and fungi, break down dead plants and animals, recycling nutrients back into the soil. 
-This continuous cycle maintains the delicate balance of the savannah ecosystem.`;
+Descartes has often been called the father of modern philosophy, and is largely seen 
+as responsible for the increased attention given to epistemology in the 17th century. 
+He laid the foundation for 17th-century continental rationalism, later advocated by 
+Spinoza and Leibniz, and was later opposed by the empiricist school of thought consisting 
+of Hobbes, Locke, Berkeley, and Hume. The rise of early modern rationalism—as a systematic 
+school of philosophy in its own right for the first time in history—exerted an influence 
+on modern Western thought in general, with the birth of two rationalistic philosophical 
+systems of Descartes (Cartesianism) and Spinoza (Spinozism). It was the 17th-century 
+arch-rationalists like Descartes, Spinoza, and Leibniz who have given the "Age of Reason" 
+its name and place in history.`;
 
 function App() {
   const [inputText, setInputText] = useState(default_text);  // Default text
